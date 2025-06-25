@@ -10,6 +10,7 @@
     <header>
         <nav>
             <div class="logo">Astrology Light For All</div>
+            <button class="mobile-menu-toggle" aria-label="Toggle mobile menu">☰</button>
             <ul class="nav-links">
                 <li><a href="#home">HOME</a></li>
                 <li><a href="#services">SERVICES</a></li>
@@ -214,5 +215,43 @@
             </div>
         </section>
     </main>
+
+    <script>
+        // Mobile menu functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const mobileMenuToggle = document.querySelector('.mobile-menu-toggle');
+            const navLinks = document.querySelector('.nav-links');
+            
+            mobileMenuToggle.addEventListener('click', function() {
+                navLinks.classList.toggle('mobile-menu-open');
+                
+                // Change hamburger icon to X when menu is open
+                if (navLinks.classList.contains('mobile-menu-open')) {
+                    mobileMenuToggle.innerHTML = '✕';
+                } else {
+                    mobileMenuToggle.innerHTML = '☰';
+                }
+            });
+            
+            // Close mobile menu when clicking on a link
+            const navLinkItems = document.querySelectorAll('.nav-links a');
+            navLinkItems.forEach(function(link) {
+                link.addEventListener('click', function() {
+                    navLinks.classList.remove('mobile-menu-open');
+                    mobileMenuToggle.innerHTML = '☰';
+                });
+            });
+            
+            // Close mobile menu when clicking outside
+            document.addEventListener('click', function(event) {
+                const isClickInsideNav = navLinks.contains(event.target) || mobileMenuToggle.contains(event.target);
+                
+                if (!isClickInsideNav && navLinks.classList.contains('mobile-menu-open')) {
+                    navLinks.classList.remove('mobile-menu-open');
+                    mobileMenuToggle.innerHTML = '☰';
+                }
+            });
+        });
+    </script>
 </body>
 </html> 
