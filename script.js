@@ -556,13 +556,13 @@ document.querySelectorAll('.learn-more-btn').forEach(function(btn) {
    let reply = '';
    const text = userText.toLowerCase();
    if (text.includes('consult')) {
-     reply = 'To book a consultation, please fill out the contact form below or call us at 9999691464, 9582841454, 9210069061.';
+     reply = 'To book a consultation, please fill out the contact form below or call us at 9999691464, 9953746052, 9210069061.';
    } else if (text.includes('horoscope')) {
      reply = 'Please select your zodiac sign in the Horoscope section above for today\'s personalized reading!';
    } else if (text.includes('service')) {
      reply = 'We offer Love Compatibility, Kundali Analysis, Gemstone Recommendation, Vastu Shastra, Numerology, and Lal Kitab Remedies. Type the service name to learn more!';
    } else if (text.includes('contact')) {
-     reply = 'You can contact us at Astrologylightforall@gmail.com or call 9999691464, 9582841454, 9210069061.';
+     reply = 'You can contact us at Astrologylightforall@gmail.com or call 9999691464, 9953746052, 9210069061.';
    } else if (text.includes('vastu')) {
      reply = 'Vastu Tip: Keep the northeast corner of your home clean and clutter-free for positive energy.';
    } else if (text.includes('love')) {
