@@ -45,6 +45,8 @@ const translations = {
     numerologyDesc: "Align your name and numbers for success—see how a small change can open big doors in life and business.",
     lalKitabRemedies: "Lal Kitab Remedies",
     lalKitabRemediesDesc: "Simple, powerful remedies for life's toughest problems—practical solutions rooted in ancient wisdom.",
+    palmReading: "Palm Reading",
+    palmReadingDesc: "Discover what your palm lines reveal about your destiny, health, career, and relationships. Get a personalized palm reading session.",
     // Testimonials Section
     testimonialsTitle: "What Our Clients Say",
     testimonial1: "The kundli analysis was incredibly accurate! Astrology light for All helped me understand my life path better. The marriage compatibility report was spot on.",
@@ -132,6 +134,8 @@ const translations = {
     numerologyDesc: "सफलता के लिए अपना नाम और संख्याओं को संरेखित करें—देखें कि कैसे एक छोटा बदलाव जीवन और व्यवसाय में बड़े दरवाजे खोल सकता है।",
     lalKitabRemedies: "लाल किताब उपचार",
     lalKitabRemediesDesc: "जीवन की सबसे कठिन समस्याओं के लिए सरल, शक्तिशाली उपचार—प्राचीन ज्ञान में निहित व्यावहारिक समाधान।",
+    palmReading: "हस्त रेखा (पाम रीडिंग)",
+    palmReadingDesc: "जानिए आपकी हथेली की रेखाएं आपके भाग्य, स्वास्थ्य, करियर और रिश्तों के बारे में क्या बताती हैं। पर्सनलाइज्ड पाम रीडिंग सत्र प्राप्त करें।",
     // Testimonials Section
     testimonialsTitle: "हमारे ग्राहक क्या कहते हैं",
     testimonial1: "कुंडली विश्लेषण अविश्वसनीय रूप से सटीक था! सभी के लिए ज्योतिष प्रकाश ने मुझे अपना जीवन पथ बेहतर ढंग से समझने में मदद की। विवाह अनुकूलता रिपोर्ट बिल्कुल सही थी।",
@@ -213,206 +217,212 @@ const horoscopes = {
 
 // Language switching function
 function switchLanguage() {
-  currentLanguage = currentLanguage === 'en' ? 'hi' : 'en';
-  
-  // Update navigation links
-  document.querySelectorAll('.nav-links a').forEach(link => {
-    const key = link.getAttribute('href').substring(1);
-    if (translations[currentLanguage][key]) {
-      link.textContent = translations[currentLanguage][key];
+  try {
+    currentLanguage = currentLanguage === 'en' ? 'hi' : 'en';
+    
+    // Update navigation links
+    document.querySelectorAll('.nav-links a').forEach(link => {
+      const key = link.getAttribute('href').substring(1);
+      if (translations[currentLanguage][key]) {
+        link.textContent = translations[currentLanguage][key];
+      }
+    });
+    
+    // Update zodiac sign names
+    document.querySelectorAll('.sign-name').forEach(sign => {
+      const key = sign.getAttribute('data-' + currentLanguage);
+      if (key) {
+        sign.textContent = key;
+      }
+    });
+    
+    // Update language button text
+    document.getElementById('languageText').textContent = currentLanguage === 'en' ? translations['en'].hindi : translations['hi'].hindi;
+    
+    // Update hero section
+    const heroTitle = document.querySelector('.hero-text h1');
+    if (heroTitle) {
+      heroTitle.textContent = translations[currentLanguage].heroTitle;
     }
-  });
-  
-  // Update zodiac sign names
-  document.querySelectorAll('.sign-name').forEach(sign => {
-    const key = sign.getAttribute('data-' + currentLanguage);
-    if (key) {
-      sign.textContent = key;
+    
+    const heroSubtitle = document.querySelector('.hero-text p');
+    if (heroSubtitle) {
+      heroSubtitle.innerHTML = translations[currentLanguage].heroSubtitle;
     }
-  });
-  
-  // Update language button text
-  document.getElementById('languageText').textContent = currentLanguage === 'en' ? translations['en'].hindi : translations['hi'].hindi;
-  
-  // Update hero section
-  const heroTitle = document.querySelector('.hero-text h1');
-  if (heroTitle) {
-    heroTitle.textContent = translations[currentLanguage].heroTitle;
-  }
-  
-  const heroSubtitle = document.querySelector('.hero-text p');
-  if (heroSubtitle) {
-    heroSubtitle.innerHTML = translations[currentLanguage].heroSubtitle;
-  }
-  
-  // Update hero buttons
-  const checkHoroscopeBtn = document.querySelector('.hero-buttons .btn-primary');
-  if (checkHoroscopeBtn) {
-    checkHoroscopeBtn.innerHTML = `<i class="fas fa-star"></i> ${translations[currentLanguage].checkHoroscope}`;
-  }
-  
-  const bookConsultationBtn = document.querySelector('.hero-buttons .btn-secondary');
-  if (bookConsultationBtn) {
-    bookConsultationBtn.innerHTML = `<i class="fas fa-phone"></i> ${translations[currentLanguage].bookConsultation}`;
-  }
-  
-  // Update services section
-  const servicesTitle = document.querySelector('#services .section-title');
-  if (servicesTitle) {
-    servicesTitle.textContent = translations[currentLanguage].servicesTitle;
-  }
-  
-  // Update service cards
-  const serviceCards = document.querySelectorAll('.feature-card h3');
-  if (serviceCards.length >= 6) {
-    serviceCards[0].textContent = translations[currentLanguage].loveCompatibility;
-    serviceCards[1].textContent = translations[currentLanguage].kundaliAnalysis;
-    serviceCards[2].textContent = translations[currentLanguage].gemstoneRecommendation;
-    serviceCards[3].textContent = translations[currentLanguage].vastuShastra;
-    serviceCards[4].textContent = translations[currentLanguage].numerology;
-    serviceCards[5].textContent = translations[currentLanguage].lalKitabRemedies;
-  }
-  
-  const serviceDescriptions = document.querySelectorAll('.feature-card p');
-  if (serviceDescriptions.length >= 6) {
-    serviceDescriptions[0].textContent = translations[currentLanguage].loveCompatibilityDesc;
-    serviceDescriptions[1].textContent = translations[currentLanguage].kundaliAnalysisDesc;
-    serviceDescriptions[2].textContent = translations[currentLanguage].gemstoneRecommendationDesc;
-    serviceDescriptions[3].textContent = translations[currentLanguage].vastuShastraDesc;
-    serviceDescriptions[4].textContent = translations[currentLanguage].numerologyDesc;
-    serviceDescriptions[5].textContent = translations[currentLanguage].lalKitabRemediesDesc;
-  }
-  
-  // Update horoscope section title
-  const horoscopeTitle = document.querySelector('.horoscope-section .section-title');
-  if (horoscopeTitle) {
-    horoscopeTitle.textContent = translations[currentLanguage].dailyHoroscope;
-  }
-  
-  // Update horoscope result text
-  const horoscopeResult = document.getElementById('horoscopeResult');
-  if (horoscopeResult && !horoscopeResult.querySelector('strong')) {
-    horoscopeResult.innerHTML = `<p>${translations[currentLanguage].selectZodiac}</p>`;
-  }
-  
-  // Update testimonials section
-  const testimonialsTitle = document.querySelector('#testimonials .section-title');
-  if (testimonialsTitle) {
-    testimonialsTitle.textContent = translations[currentLanguage].testimonialsTitle;
-  }
-  
-  // Update testimonials
-  const testimonials = document.querySelectorAll('.testimonial p');
-  const testimonialAuthors = document.querySelectorAll('.testimonial-author');
-  
-  if (testimonials.length >= 4) {
-    testimonials[0].textContent = translations[currentLanguage].testimonial1;
-    testimonials[1].textContent = translations[currentLanguage].testimonial2;
-    testimonials[2].textContent = translations[currentLanguage].testimonial3;
-    testimonials[3].textContent = translations[currentLanguage].testimonial4;
-  }
-  
-  if (testimonialAuthors.length >= 4) {
-    testimonialAuthors[0].textContent = `- ${translations[currentLanguage].testimonial1Author}`;
-    testimonialAuthors[1].textContent = `- ${translations[currentLanguage].testimonial2Author}`;
-    testimonialAuthors[2].textContent = `- ${translations[currentLanguage].testimonial3Author}`;
-    testimonialAuthors[3].textContent = `- ${translations[currentLanguage].testimonial4Author}`;
-  }
-  
-  // Update about section
-  const aboutTitle = document.querySelector('#about .about-text h2');
-  if (aboutTitle) {
-    aboutTitle.textContent = translations[currentLanguage].aboutTitle;
-  }
-  
-  const aboutParagraphs = document.querySelectorAll('#about .about-text p');
-  if (aboutParagraphs.length >= 3) {
-    aboutParagraphs[0].textContent = translations[currentLanguage].aboutPara1;
-    aboutParagraphs[1].textContent = translations[currentLanguage].aboutPara2;
-    aboutParagraphs[2].textContent = translations[currentLanguage].aboutPara3;
-  }
-  
-  // Update FAQ section
-  const faqTitle = document.querySelector('#faq .section-title');
-  if (faqTitle) {
-    faqTitle.textContent = translations[currentLanguage].faqTitle;
-  }
-  
-  const faqQuestions = document.querySelectorAll('#faq .faq-item h3');
-  const faqAnswers = document.querySelectorAll('#faq .faq-item p');
-  
-  if (faqQuestions.length >= 6) {
-    faqQuestions[0].textContent = translations[currentLanguage].faq1Question;
-    faqQuestions[1].textContent = translations[currentLanguage].faq2Question;
-    faqQuestions[2].textContent = translations[currentLanguage].faq3Question;
-    faqQuestions[3].textContent = translations[currentLanguage].faq4Question;
-    faqQuestions[4].textContent = translations[currentLanguage].faq5Question;
-    faqQuestions[5].textContent = translations[currentLanguage].faq6Question;
-  }
-  
-  if (faqAnswers.length >= 6) {
-    faqAnswers[0].textContent = translations[currentLanguage].faq1Answer;
-    faqAnswers[1].textContent = translations[currentLanguage].faq2Answer;
-    faqAnswers[2].textContent = translations[currentLanguage].faq3Answer;
-    faqAnswers[3].textContent = translations[currentLanguage].faq4Answer;
-    faqAnswers[4].textContent = translations[currentLanguage].faq5Answer;
-    faqAnswers[5].textContent = translations[currentLanguage].faq6Answer;
-  }
-  
-  // Update contact section
-  const contactTitle = document.querySelector('#contact .section-title');
-  if (contactTitle) {
-    contactTitle.textContent = translations[currentLanguage].contactTitle;
-  }
-  
-  // Update contact form labels
-  const formLabels = document.querySelectorAll('.form-group label');
-  const formOptions = document.querySelectorAll('#service option');
-  const submitBtn = document.querySelector('.submit-btn');
-  
-  if (formLabels.length >= 5) {
-    formLabels[0].textContent = translations[currentLanguage].fullName;
-    formLabels[1].textContent = translations[currentLanguage].emailAddress;
-    formLabels[2].textContent = translations[currentLanguage].phoneNumber;
-    formLabels[3].textContent = translations[currentLanguage].serviceRequired;
-    formLabels[4].textContent = translations[currentLanguage].yourMessage;
-  }
-  
-  if (formOptions.length >= 7) {
-    formOptions[0].textContent = translations[currentLanguage].selectService;
-    formOptions[1].textContent = translations[currentLanguage].dailyHoroscope;
-    formOptions[2].textContent = translations[currentLanguage].kundaliAnalysis;
-    formOptions[3].textContent = translations[currentLanguage].loveCompatibility;
-    formOptions[4].textContent = translations[currentLanguage].gemstoneRecommendation;
-    formOptions[5].textContent = translations[currentLanguage].vastuShastra;
-    formOptions[6].textContent = translations[currentLanguage].lalKitabRemedies;
-  }
-  
-  if (submitBtn) {
-    submitBtn.innerHTML = `<i class="fas fa-paper-plane"></i> ${translations[currentLanguage].sendMessage}`;
-  }
-  
-  // Update footer
-  const footerCopyright = document.querySelector('.footer-bottom p');
-  if (footerCopyright) {
-    footerCopyright.textContent = translations[currentLanguage].copyright;
-  }
-  
-  // Update location bar
-  const locationText = document.querySelector('.location-info span');
-  if (locationText) {
-    locationText.textContent = translations[currentLanguage].locationText;
-  }
-  
-  const getDirectionsBtn = document.querySelector('.btn-primary');
-  if (getDirectionsBtn) {
-    getDirectionsBtn.innerHTML = `<i class="fas fa-directions"></i> ${translations[currentLanguage].getDirections}`;
-  }
-  
-  const viewOnMapsBtn = document.querySelector('.btn-secondary');
-  if (viewOnMapsBtn) {
-    viewOnMapsBtn.innerHTML = `<i class="fas fa-map"></i> ${translations[currentLanguage].viewOnMaps}`;
-  }
+    
+    // Update hero buttons
+    const checkHoroscopeBtn = document.querySelector('.hero-buttons .btn-primary');
+    if (checkHoroscopeBtn) {
+      checkHoroscopeBtn.innerHTML = `<i class="fas fa-star"></i> ${translations[currentLanguage].checkHoroscope}`;
+    }
+    
+    const bookConsultationBtn = document.querySelector('.hero-buttons .btn-secondary');
+    if (bookConsultationBtn) {
+      bookConsultationBtn.innerHTML = `<i class="fas fa-phone"></i> ${translations[currentLanguage].bookConsultation}`;
+    }
+    
+    // Update services section
+    const servicesTitle = document.querySelector('#services .section-title');
+    if (servicesTitle) {
+      servicesTitle.textContent = translations[currentLanguage].servicesTitle;
+    }
+    
+    // Update service cards
+    const serviceCards = document.querySelectorAll('.feature-card h3');
+    if (serviceCards.length >= 7) {
+      serviceCards[0].textContent = translations[currentLanguage].loveCompatibility;
+      serviceCards[1].textContent = translations[currentLanguage].kundaliAnalysis;
+      serviceCards[2].textContent = translations[currentLanguage].gemstoneRecommendation;
+      serviceCards[3].textContent = translations[currentLanguage].vastuShastra;
+      serviceCards[4].textContent = translations[currentLanguage].numerology;
+      serviceCards[5].textContent = translations[currentLanguage].lalKitabRemedies;
+      serviceCards[6].textContent = translations[currentLanguage].palmReading;
+    }
+
+    // Update service descriptions (feature-card p)
+    const serviceDescriptions = document.querySelectorAll('.feature-card > p');
+    if (serviceDescriptions.length >= 7) {
+      serviceDescriptions[0].textContent = translations[currentLanguage].loveCompatibilityDesc;
+      serviceDescriptions[1].textContent = translations[currentLanguage].kundaliAnalysisDesc;
+      serviceDescriptions[2].textContent = translations[currentLanguage].gemstoneRecommendationDesc;
+      serviceDescriptions[3].textContent = translations[currentLanguage].vastuShastraDesc;
+      serviceDescriptions[4].textContent = translations[currentLanguage].numerologyDesc;
+      serviceDescriptions[5].textContent = translations[currentLanguage].lalKitabRemediesDesc;
+      serviceDescriptions[6].textContent = translations[currentLanguage].palmReadingDesc;
+    }
+    
+    // Update horoscope section title
+    const horoscopeTitle = document.querySelector('.horoscope-section .section-title');
+    if (horoscopeTitle) {
+      horoscopeTitle.textContent = translations[currentLanguage].dailyHoroscope;
+    }
+    
+    // Update horoscope result text
+    const horoscopeResult = document.getElementById('horoscopeResult');
+    if (horoscopeResult && !horoscopeResult.querySelector('strong')) {
+      horoscopeResult.innerHTML = `<p>${translations[currentLanguage].selectZodiac}</p>`;
+    }
+    
+    // Update testimonials section
+    const testimonialsTitle = document.querySelector('#testimonials .section-title');
+    if (testimonialsTitle) {
+      testimonialsTitle.textContent = translations[currentLanguage].testimonialsTitle;
+    }
+    
+    // Update testimonials
+    const testimonials = document.querySelectorAll('.testimonial p');
+    const testimonialAuthors = document.querySelectorAll('.testimonial-author');
+    
+    if (testimonials.length >= 4) {
+      testimonials[0].textContent = translations[currentLanguage].testimonial1;
+      testimonials[1].textContent = translations[currentLanguage].testimonial2;
+      testimonials[2].textContent = translations[currentLanguage].testimonial3;
+      testimonials[3].textContent = translations[currentLanguage].testimonial4;
+    }
+    
+    if (testimonialAuthors.length >= 4) {
+      testimonialAuthors[0].textContent = `- ${translations[currentLanguage].testimonial1Author}`;
+      testimonialAuthors[1].textContent = `- ${translations[currentLanguage].testimonial2Author}`;
+      testimonialAuthors[2].textContent = `- ${translations[currentLanguage].testimonial3Author}`;
+      testimonialAuthors[3].textContent = `- ${translations[currentLanguage].testimonial4Author}`;
+    }
+    
+    // Update about section
+    const aboutTitle = document.querySelector('#about .about-text h2');
+    if (aboutTitle) {
+      aboutTitle.textContent = translations[currentLanguage].aboutTitle;
+    }
+    
+    const aboutParagraphs = document.querySelectorAll('#about .about-text p');
+    if (aboutParagraphs.length >= 3) {
+      aboutParagraphs[0].textContent = translations[currentLanguage].aboutPara1;
+      aboutParagraphs[1].textContent = translations[currentLanguage].aboutPara2;
+      aboutParagraphs[2].textContent = translations[currentLanguage].aboutPara3;
+    }
+    
+    // Update FAQ section
+    const faqTitle = document.querySelector('#faq .section-title');
+    if (faqTitle) {
+      faqTitle.textContent = translations[currentLanguage].faqTitle;
+    }
+    
+    const faqQuestions = document.querySelectorAll('#faq .faq-item h3');
+    const faqAnswers = document.querySelectorAll('#faq .faq-item p');
+    
+    if (faqQuestions.length >= 6) {
+      faqQuestions[0].textContent = translations[currentLanguage].faq1Question;
+      faqQuestions[1].textContent = translations[currentLanguage].faq2Question;
+      faqQuestions[2].textContent = translations[currentLanguage].faq3Question;
+      faqQuestions[3].textContent = translations[currentLanguage].faq4Question;
+      faqQuestions[4].textContent = translations[currentLanguage].faq5Question;
+      faqQuestions[5].textContent = translations[currentLanguage].faq6Question;
+    }
+    
+    if (faqAnswers.length >= 6) {
+      faqAnswers[0].textContent = translations[currentLanguage].faq1Answer;
+      faqAnswers[1].textContent = translations[currentLanguage].faq2Answer;
+      faqAnswers[2].textContent = translations[currentLanguage].faq3Answer;
+      faqAnswers[3].textContent = translations[currentLanguage].faq4Answer;
+      faqAnswers[4].textContent = translations[currentLanguage].faq5Answer;
+      faqAnswers[5].textContent = translations[currentLanguage].faq6Answer;
+    }
+    
+    // Update contact section
+    const contactTitle = document.querySelector('#contact .section-title');
+    if (contactTitle) {
+      contactTitle.textContent = translations[currentLanguage].contactTitle;
+    }
+    
+    // Update contact form labels
+    const formLabels = document.querySelectorAll('.form-group label');
+    const formOptions = document.querySelectorAll('#service option');
+    const submitBtn = document.querySelector('.submit-btn');
+    
+    if (formLabels.length >= 5) {
+      formLabels[0].textContent = translations[currentLanguage].fullName;
+      formLabels[1].textContent = translations[currentLanguage].emailAddress;
+      formLabels[2].textContent = translations[currentLanguage].phoneNumber;
+      formLabels[3].textContent = translations[currentLanguage].serviceRequired;
+      formLabels[4].textContent = translations[currentLanguage].yourMessage;
+    }
+
+    // Fix: Map option values to translation keys for both languages
+    if (formOptions.length >= 7) {
+      formOptions[0].textContent = translations[currentLanguage].selectService;
+      formOptions[1].textContent = translations[currentLanguage].dailyHoroscope;
+      formOptions[2].textContent = translations[currentLanguage].kundaliAnalysis;
+      formOptions[3].textContent = translations[currentLanguage].loveCompatibility;
+      formOptions[4].textContent = translations[currentLanguage].gemstoneRecommendation;
+      formOptions[5].textContent = translations[currentLanguage].vastuShastra;
+      formOptions[6].textContent = translations[currentLanguage].lalKitabRemedies || translations[currentLanguage].remedialSolutions;
+    }
+    
+    if (submitBtn) {
+      submitBtn.innerHTML = `<i class="fas fa-paper-plane"></i> ${translations[currentLanguage].sendMessage}`;
+    }
+    
+    // Update footer
+    const footerCopyright = document.querySelector('.footer-bottom p');
+    if (footerCopyright) {
+      footerCopyright.textContent = translations[currentLanguage].copyright;
+    }
+    
+    // Update location bar
+    const locationText = document.querySelector('.location-info span');
+    if (locationText) {
+      locationText.textContent = translations[currentLanguage].locationText;
+    }
+    
+    const getDirectionsBtn = document.querySelector('.btn-primary');
+    if (getDirectionsBtn) {
+      getDirectionsBtn.innerHTML = `<i class="fas fa-directions"></i> ${translations[currentLanguage].getDirections}`;
+    }
+    
+    const viewOnMapsBtn = document.querySelector('.btn-secondary');
+    if (viewOnMapsBtn) {
+      viewOnMapsBtn.innerHTML = `<i class="fas fa-map"></i> ${translations[currentLanguage].viewOnMaps}`;
+    }
+  } catch (err) { console.error('Language switch error:', err); }
 }
 
 // Language toggle event listener
@@ -447,36 +457,6 @@ document.querySelectorAll('.zodiac-sign').forEach(sign => {
       ${horoscopeText}</p>
     `;
   });
-});
-
-// Contact form handling
-document.getElementById('contactForm').addEventListener('submit', function(e) {
-  e.preventDefault();
-  
-  // Get form data
-  const formData = new FormData(this);
-  const name = formData.get('name');
-  const email = formData.get('email');
-  const phone = formData.get('phone');
-  const service = formData.get('service');
-  const message = formData.get('message');
-  
-  // Simple validation
-  if (!name || !email || !phone || !service || !message) {
-    alert('Please fill in all fields');
-    return;
-  }
-  
-  // Email validation
-  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  if (!emailRegex.test(email)) {
-    alert('Please enter a valid email address');
-    return;
-  }
-  
-  // Success message
-  alert('Thank you for your message! We will get back to you soon.');
-  this.reset();
 });
 
 // Contact form AJAX submission for Formspree
@@ -547,119 +527,122 @@ document.querySelectorAll('.learn-more-btn').forEach(function(btn) {
   });
 });
  // Chatbot popup logic
- const chatbotButton = document.getElementById('chatbot-button');
- const chatbotPopup = document.getElementById('chatbot-popup');
- const chatbotClose = document.getElementById('chatbot-close');
- const chatbotMessages = document.getElementById('chatbot-messages');
- const chatbotForm = document.getElementById('chatbot-form');
- const chatbotInput = document.getElementById('chatbot-input');
- const chatbotQuickReplies = document.getElementById('chatbot-quick-replies');
+ try {
+  const chatbotButton = document.getElementById('chatbot-button');
+  const chatbotPopup = document.getElementById('chatbot-popup');
+  const chatbotClose = document.getElementById('chatbot-close');
+  const chatbotMessages = document.getElementById('chatbot-messages');
+  const chatbotForm = document.getElementById('chatbot-form');
+  const chatbotInput = document.getElementById('chatbot-input');
+  const chatbotQuickReplies = document.getElementById('chatbot-quick-replies');
 
- const quickReplies = [
-   { text: 'Book a Consultation', value: 'I want to book a consultation' },
-   { text: 'Daily Horoscope', value: 'Show me today\'s horoscope' },
-   { text: 'Service Info', value: 'Tell me about your services' },
-   { text: 'Contact Details', value: 'How can I contact you?' },
-   { text: 'Vastu Tips', value: 'Share a Vastu tip' }
- ];
+  const quickReplies = [
+    { text: 'Book a Consultation', value: 'I want to book a consultation' },
+    { text: 'Daily Horoscope', value: 'Show me today\'s horoscope' },
+    { text: 'Service Info', value: 'Tell me about your services' },
+    { text: 'Contact Details', value: 'How can I contact you?' },
+    { text: 'Vastu Tips', value: 'Share a Vastu tip' }
+  ];
 
- function addMessage(text, sender = 'bot') {
-   const msg = document.createElement('div');
-   msg.style.maxWidth = '85%';
-   msg.style.alignSelf = sender === 'user' ? 'flex-end' : 'flex-start';
-   msg.style.background = sender === 'user' ? 'var(--secondary)' : '#fff';
-   msg.style.color = sender === 'user' ? '#fff' : '#2C1810';
-   msg.style.padding = '0.7rem 1rem';
-   msg.style.borderRadius = sender === 'user' ? '18px 18px 4px 18px' : '18px 18px 18px 4px';
-   msg.style.boxShadow = '0 2px 8px rgba(139,69,19,0.07)';
-   msg.textContent = text;
-   chatbotMessages.appendChild(msg);
-   chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
- }
+  function addMessage(text, sender = 'bot') {
+    const msg = document.createElement('div');
+    msg.style.maxWidth = '85%';
+    msg.style.alignSelf = sender === 'user' ? 'flex-end' : 'flex-start';
+    msg.style.background = sender === 'user' ? 'var(--secondary)' : '#fff';
+    msg.style.color = sender === 'user' ? '#fff' : '#2C1810';
+    msg.style.padding = '0.7rem 1rem';
+    msg.style.borderRadius = sender === 'user' ? '18px 18px 4px 18px' : '18px 18px 18px 4px';
+    msg.style.boxShadow = '0 2px 8px rgba(139,69,19,0.07)';
+    msg.textContent = text;
+    chatbotMessages.appendChild(msg);
+    chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
+  }
 
- function botReply(userText) {
-   let reply = '';
-   const text = userText.toLowerCase();
-   if (text.includes('consult')) {
-     reply = 'To book a consultation, please fill out the contact form below or call us at 9999691464, 9953746052, 9210069061.';
-   } else if (text.includes('horoscope')) {
-     reply = 'Please select your zodiac sign in the Horoscope section above for today\'s personalized reading!';
-   } else if (text.includes('service')) {
-     reply = 'We offer Love Compatibility, Kundali Analysis, Gemstone Recommendation, Vastu Shastra, Numerology, and Lal Kitab Remedies. Type the service name to learn more!';
-   } else if (text.includes('contact')) {
-     reply = 'You can contact us at Astrologylightforall@gmail.com or call 9999691464, 9953746052, 9210069061.';
-   } else if (text.includes('vastu')) {
-     reply = 'Vastu Tip: Keep the northeast corner of your home clean and clutter-free for positive energy.';
-   } else if (text.includes('love')) {
-     reply = 'Love Compatibility: Astrology can reveal the energy flow between two people. Would you like to know more?';
-   } else if (text.includes('kundali')) {
-     reply = 'Kundali Analysis: Your birth chart is like your life\'s X-ray. We can help you understand your strengths and challenges.';
-   } else if (text.includes('gemstone')) {
-     reply = 'Gemstone Recommendation: The right stone can boost your energy. We recommend only after a detailed chart reading.';
-   } else if (text.includes('numerology')) {
-     reply = 'Numerology: Your name and birth date carry energy. A small change can open big doors!';
-   } else if (text.includes('lal kitab')) {
-     reply = 'Lal Kitab Remedies: Simple, practical solutions for life\'s toughest problems. Want to know more?';
-   } else if (text.includes('youtube')) {
-     reply = 'You can watch us on YouTube: youtube.com/@MANJULGMALHOTRA';
-   } else if (text.includes('facebook')) {
-     reply = 'Follow us on Facebook: facebook.com/ASTROLOGYLIGHTFORALL';
-   } else if (text.includes('address')) {
-     reply = 'Astrology light for all, Ground Floor, 10/17, Block 10, Subhash Nagar, New Delhi, Delhi, 110027';
-   } else {
-     reply = 'I\'m here to help! You can ask about our services, booking, horoscopes, or anything related to astrology.';
-   }
-   setTimeout(() => addMessage(reply, 'bot'), 600);
- }
+  function botReply(userText) {
+    let reply = '';
+    const text = userText.toLowerCase();
+    if (text.includes('consult')) {
+      reply = 'To book a consultation, please fill out the contact form below or call us at 9999691464, 9953746052, 9210069061.';
+    } else if (text.includes('horoscope')) {
+      reply = 'Please select your zodiac sign in the Horoscope section above for today\'s personalized reading!';
+    } else if (text.includes('service')) {
+      reply = 'We offer Love Compatibility, Kundali Analysis, Gemstone Recommendation, Vastu Shastra, Numerology, and Lal Kitab Remedies. Type the service name to learn more!';
+    } else if (text.includes('contact')) {
+      reply = 'You can contact us at Astrologylightforall@gmail.com or call 9999691464, 9953746052, 9210069061.';
+    } else if (text.includes('vastu')) {
+      reply = 'Vastu Tip: Keep the northeast corner of your home clean and clutter-free for positive energy.';
+    } else if (text.includes('love')) {
+      reply = 'Love Compatibility: Astrology can reveal the energy flow between two people. Would you like to know more?';
+    } else if (text.includes('kundali')) {
+      reply = 'Kundali Analysis: Your birth chart is like your life\'s X-ray. We can help you understand your strengths and challenges.';
+    } else if (text.includes('gemstone')) {
+      reply = 'Gemstone Recommendation: The right stone can boost your energy. We recommend only after a detailed chart reading.';
+    } else if (text.includes('numerology')) {
+      reply = 'Numerology: Your name and birth date carry energy. A small change can open big doors!';
+    } else if (text.includes('lal kitab')) {
+      reply = 'Lal Kitab Remedies: Simple, practical solutions for life\'s toughest problems. Want to know more?';
+    } else if (text.includes('youtube')) {
+      reply = 'You can watch us on YouTube: youtube.com/@MANJULGMALHOTRA';
+    } else if (text.includes('facebook')) {
+      reply = 'Follow us on Facebook: facebook.com/ASTROLOGYLIGHTFORALL';
+    } else if (text.includes('address')) {
+      reply = 'Astrology light for all, Ground Floor, 10/17, Block 10, Subhash Nagar, New Delhi, Delhi, 110027';
+    } else {
+      reply = 'I\'m here to help! You can ask about our services, booking, horoscopes, or anything related to astrology.';
+    }
+    setTimeout(() => addMessage(reply, 'bot'), 600);
+  }
 
- function showQuickReplies() {
-   chatbotQuickReplies.innerHTML = '';
-   quickReplies.forEach(q => {
-     const btn = document.createElement('button');
-     btn.textContent = q.text;
-     btn.style.background = 'var(--light)';
-     btn.style.color = 'var(--primary)';
-     btn.style.border = '1px solid var(--secondary)';
-     btn.style.borderRadius = '16px';
-     btn.style.padding = '0.4rem 1rem';
-     btn.style.marginBottom = '0.2rem';
-     btn.style.cursor = 'pointer';
-     btn.style.fontWeight = '600';
-     btn.style.fontSize = '0.95rem';
-     btn.addEventListener('click', function() {
-       addMessage(q.text, 'user');
-       botReply(q.value);
-       chatbotQuickReplies.innerHTML = '';
-     });
-     chatbotQuickReplies.appendChild(btn);
-   });
- }
+  function showQuickReplies() {
+    chatbotQuickReplies.innerHTML = '';
+    quickReplies.forEach(q => {
+      const btn = document.createElement('button');
+      btn.textContent = q.text;
+      btn.style.background = 'var(--light)';
+      btn.style.color = 'var(--primary)';
+      btn.style.border = '1px solid var(--secondary)';
+      btn.style.borderRadius = '16px';
+      btn.style.padding = '0.4rem 1rem';
+      btn.style.marginBottom = '0.2rem';
+      btn.style.cursor = 'pointer';
+      btn.style.fontWeight = '600';
+      btn.style.fontSize = '0.95rem';
+      btn.addEventListener('click', function() {
+        addMessage(q.text, 'user');
+        botReply(q.value);
+        chatbotQuickReplies.innerHTML = '';
+      });
+      chatbotQuickReplies.appendChild(btn);
+    });
+  }
 
- chatbotButton.addEventListener('click', function() {
-   chatbotPopup.style.display = 'flex';
-   chatbotButton.style.display = 'none';
-   chatbotMessages.innerHTML = '';
-   addMessage('👋 Hi! I\'m AstroBot. How can I help you today?');
-   showQuickReplies();
- });
- chatbotClose.addEventListener('click', function() {
-   chatbotPopup.style.display = 'none';
-   chatbotButton.style.display = 'block';
- });
- chatbotForm.addEventListener('submit', function(e) {
-   e.preventDefault();
-   const userText = chatbotInput.value.trim();
-   if (!userText) return;
-   addMessage(userText, 'user');
-   chatbotInput.value = '';
-   chatbotQuickReplies.innerHTML = '';
-   botReply(userText);
- });
- // Section fade/slide-in animation
- document.querySelectorAll('section, .testimonials, .features, .about, .faq, .contact').forEach(el => {
+  chatbotButton.addEventListener('click', function() {
+    chatbotPopup.style.display = 'flex';
+    chatbotButton.style.display = 'none';
+    chatbotMessages.innerHTML = '';
+    addMessage('👋 Hi! I\'m AstroBot. How can I help you today?');
+    showQuickReplies();
+  });
+  chatbotClose.addEventListener('click', function() {
+    chatbotPopup.style.display = 'none';
+    chatbotButton.style.display = 'block';
+  });
+  chatbotForm.addEventListener('submit', function(e) {
+    e.preventDefault();
+    const userText = chatbotInput.value.trim();
+    if (!userText) return;
+    addMessage(userText, 'user');
+    chatbotInput.value = '';
+    chatbotQuickReplies.innerHTML = '';
+    botReply(userText);
+  });
+} catch (err) { console.error('Chatbot error:', err); }
+
+// Section fade/slide-in animation
+try {
+  document.querySelectorAll('section, .testimonials, .features, .about, .faq, .contact').forEach(el => {
     el.classList.add('section-animate');
   });
-  // Only declare observer once
   if (!window._sectionObserverInitialized) {
     const sectionObserver = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
@@ -671,179 +654,186 @@ document.querySelectorAll('.learn-more-btn').forEach(function(btn) {
     document.querySelectorAll('.section-animate').forEach(el => sectionObserver.observe(el));
     window._sectionObserverInitialized = true;
   }
+} catch (err) { console.error('Section animation error:', err); }
   
   // Opening Animation
-  window.addEventListener('load', function() {
-    const openingAnimation = document.getElementById('openingAnimation');
-    const consultationPopup = document.getElementById('consultationPopup');
-    
-    // Show opening animation for 4 seconds
-    setTimeout(() => {
-      if (openingAnimation) {
-        openingAnimation.style.display = 'none';
-      }
+  try {
+    window.addEventListener('load', function() {
+      const openingAnimation = document.getElementById('openingAnimation');
+      const consultationPopup = document.getElementById('consultationPopup');
       
-      // Show consultation popup after 2 seconds
+      // Show opening animation for 4 seconds
       setTimeout(() => {
-        if (consultationPopup) {
-          consultationPopup.style.display = 'flex';
+        if (openingAnimation) {
+          openingAnimation.style.display = 'none';
         }
-      }, 2000);
-    }, 4000);
-  });
+        
+        // Show consultation popup after 2 seconds
+        setTimeout(() => {
+          if (consultationPopup) {
+            consultationPopup.style.display = 'flex';
+          }
+        }, 2000);
+      }, 4000);
+    });
+  } catch (err) { console.error('Opening animation error:', err); }
   
   // Consultation Popup Controls
-  document.addEventListener('DOMContentLoaded', function() {
-    const consultationPopup = document.getElementById('consultationPopup');
-    const popupClose = document.getElementById('popupClose');
-    const closePopup = document.getElementById('closePopup');
-    
-    if (popupClose) {
-      popupClose.addEventListener('click', function() {
-        consultationPopup.style.display = 'none';
-      });
-    }
-    
-    if (closePopup) {
-      closePopup.addEventListener('click', function() {
-        consultationPopup.style.display = 'none';
-      });
-    }
-    
-    // Close popup when clicking outside
-    if (consultationPopup) {
-      consultationPopup.addEventListener('click', function(e) {
-        if (e.target === consultationPopup) {
+  try {
+    document.addEventListener('DOMContentLoaded', function() {
+      const consultationPopup = document.getElementById('consultationPopup');
+      const popupClose = document.getElementById('popupClose');
+      const closePopup = document.getElementById('closePopup');
+      
+      if (popupClose) {
+        popupClose.addEventListener('click', function() {
           consultationPopup.style.display = 'none';
-        }
-      });
-    }
-  });
+        });
+      }
+      
+      if (closePopup) {
+        closePopup.addEventListener('click', function() {
+          consultationPopup.style.display = 'none';
+        });
+      }
+      
+      // Close popup when clicking outside
+      if (consultationPopup) {
+        consultationPopup.addEventListener('click', function(e) {
+          if (e.target === consultationPopup) {
+            consultationPopup.style.display = 'none';
+          }
+        });
+      }
+    });
+  } catch (err) { console.error('Consultation popup controls error:', err); }
   
   // Dynamic Google Reviews
-  const googleReviews = [
-    {
-      name: "Priya Sharma",
-      rating: 5,
-      date: "2 weeks ago",
-      text: "The kundli analysis was incredibly accurate! Astrology light for All helped me understand my life path better. The marriage compatibility report was spot on.",
-      avatar: "PS"
-    },
-    {
-      name: "Rahul Verma",
-      rating: 5,
-      date: "1 month ago",
-      text: "I was skeptical at first, but the daily horoscopes are amazingly accurate. The gemstone recommendation changed my life positively.",
-      avatar: "RV"
-    },
-    {
-      name: "Anjali Patel",
-      rating: 5,
-      date: "3 weeks ago",
-      text: "The Vastu consultation transformed our home energy. We feel more peaceful and prosperous since following their advice.",
-      avatar: "AP"
-    },
-    {
-      name: "Sunita Reddy",
-      rating: 5,
-      date: "1 month ago",
-      text: "Professional, caring, and accurate. The birth chart analysis revealed aspects of my personality I never knew existed.",
-      avatar: "SR"
-    },
-    {
-      name: "Rajesh Kumar",
-      rating: 5,
-      date: "2 months ago",
-      text: "Excellent service! The astrologer is very knowledgeable and patient. Helped me understand my career path clearly.",
-      avatar: "RK"
-    },
-    {
-      name: "Meera Singh",
-      rating: 5,
-      date: "1 month ago",
-      text: "The gemstone recommendation was perfect. I feel more confident and positive since wearing the suggested stone.",
-      avatar: "MS"
-    },
-    {
-      name: "Amit Gupta",
-      rating: 5,
-      date: "3 weeks ago",
-      text: "Very accurate predictions and helpful remedies. The consultation was worth every penny. Highly recommended!",
-      avatar: "AG"
-    },
-    {
-      name: "Kavita Sharma",
-      rating: 5,
-      date: "2 months ago",
-      text: "The marriage compatibility analysis was detailed and accurate. Helped us make an informed decision.",
-      avatar: "KS"
-    }
-  ];
-  
-  let currentReviewIndex = 0;
-  const reviewsPerLoad = 4;
-  
-  function createReviewCard(review) {
-    const stars = '★'.repeat(review.rating) + '☆'.repeat(5 - review.rating);
-    return `
-      <div class="review-card">
-        <div class="review-header">
-          <div class="reviewer-avatar">${review.avatar}</div>
-          <div class="reviewer-info">
-            <h4>${review.name}</h4>
-            <div class="review-date">${review.date}</div>
-            <div class="review-stars">
-              ${stars.split('').map(star => 
-                star === '★' ? '<i class="fas fa-star star"></i>' : '<i class="far fa-star star"></i>'
-              ).join('')}
+  try {
+    const googleReviews = [
+      {
+        name: "Priya Sharma",
+        rating: 5,
+        date: "2 weeks ago",
+        text: "The kundli analysis was incredibly accurate! Astrology light for All helped me understand my life path better. The marriage compatibility report was spot on.",
+        avatar: "PS"
+      },
+      {
+        name: "Rahul Verma",
+        rating: 5,
+        date: "1 month ago",
+        text: "I was skeptical at first, but the daily horoscopes are amazingly accurate. The gemstone recommendation changed my life positively.",
+        avatar: "RV"
+      },
+      {
+        name: "Anjali Patel",
+        rating: 5,
+        date: "3 weeks ago",
+        text: "The Vastu consultation transformed our home energy. We feel more peaceful and prosperous since following their advice.",
+        avatar: "AP"
+      },
+      {
+        name: "Sunita Reddy",
+        rating: 5,
+        date: "1 month ago",
+        text: "Professional, caring, and accurate. The birth chart analysis revealed aspects of my personality I never knew existed.",
+        avatar: "SR"
+      },
+      {
+        name: "Rajesh Kumar",
+        rating: 5,
+        date: "2 months ago",
+        text: "Excellent service! The astrologer is very knowledgeable and patient. Helped me understand my career path clearly.",
+        avatar: "RK"
+      },
+      {
+        name: "Meera Singh",
+        rating: 5,
+        date: "1 month ago",
+        text: "The gemstone recommendation was perfect. I feel more confident and positive since wearing the suggested stone.",
+        avatar: "MS"
+      },
+      {
+        name: "Amit Gupta",
+        rating: 5,
+        date: "3 weeks ago",
+        text: "Very accurate predictions and helpful remedies. The consultation was worth every penny. Highly recommended!",
+        avatar: "AG"
+      },
+      {
+        name: "Kavita Sharma",
+        rating: 5,
+        date: "2 months ago",
+        text: "The marriage compatibility analysis was detailed and accurate. Helped us make an informed decision.",
+        avatar: "KS"
+      }
+    ];
+    
+    let currentReviewIndex = 0;
+    const reviewsPerLoad = 4;
+    
+    function createReviewCard(review) {
+      const stars = '★'.repeat(review.rating) + '☆'.repeat(5 - review.rating);
+      return `
+        <div class="review-card">
+          <div class="review-header">
+            <div class="reviewer-avatar">${review.avatar}</div>
+            <div class="reviewer-info">
+              <h4>${review.name}</h4>
+              <div class="review-date">${review.date}</div>
+              <div class="review-stars">
+                ${stars.split('').map(star => 
+                  star === '★' ? '<i class="fas fa-star star"></i>' : '<i class="far fa-star star"></i>'
+                ).join('')}
+              </div>
             </div>
           </div>
+          <div class="review-text">${review.text}</div>
         </div>
-        <div class="review-text">${review.text}</div>
-      </div>
-    `;
-  }
-  
-  function loadReviews() {
-    const reviewsGrid = document.getElementById('reviewsGrid');
-    const loadMoreBtn = document.getElementById('loadMoreReviews');
-    
-    if (!reviewsGrid) return;
-    
-    const endIndex = Math.min(currentReviewIndex + reviewsPerLoad, googleReviews.length);
-    
-    for (let i = currentReviewIndex; i < endIndex; i++) {
-      reviewsGrid.innerHTML += createReviewCard(googleReviews[i]);
+      `;
     }
     
-    currentReviewIndex = endIndex;
-    
-    // Hide load more button if all reviews are loaded
-    if (loadMoreBtn && currentReviewIndex >= googleReviews.length) {
-      loadMoreBtn.style.display = 'none';
+    function loadReviews() {
+      const reviewsGrid = document.getElementById('reviewsGrid');
+      const loadMoreBtn = document.getElementById('loadMoreReviews');
+      
+      if (!reviewsGrid) return;
+      
+      const endIndex = Math.min(currentReviewIndex + reviewsPerLoad, googleReviews.length);
+      
+      for (let i = currentReviewIndex; i < endIndex; i++) {
+        reviewsGrid.innerHTML += createReviewCard(googleReviews[i]);
+      }
+      
+      currentReviewIndex = endIndex;
+      
+      // Hide load more button if all reviews are loaded
+      if (loadMoreBtn && currentReviewIndex >= googleReviews.length) {
+        loadMoreBtn.style.display = 'none';
+      }
     }
-  }
-  
-  // Load initial reviews
-  document.addEventListener('DOMContentLoaded', function() {
-    loadReviews();
     
-    // Load more reviews button
-    const loadMoreBtn = document.getElementById('loadMoreReviews');
-    if (loadMoreBtn) {
-      loadMoreBtn.addEventListener('click', loadReviews);
+    // Load initial reviews
+    document.addEventListener('DOMContentLoaded', function() {
+      try { loadReviews(); } catch (err) { console.error('Reviews load error:', err); }
+      const loadMoreBtn = document.getElementById('loadMoreReviews');
+      if (loadMoreBtn) {
+        loadMoreBtn.addEventListener('click', function() {
+          try { loadReviews(); } catch (err) { console.error('Load more reviews error:', err); }
+        });
+      }
+    });
+    
+    // Function to update reviews from Google My Business (manual method)
+    function updateReviewsFromGoogle() {
+      // This function can be called manually to update reviews
+      // You can add new reviews to the googleReviews array
+      console.log('Reviews updated from Google My Business');
     }
-  });
-  
-  // Function to update reviews from Google My Business (manual method)
-  function updateReviewsFromGoogle() {
-    // This function can be called manually to update reviews
-    // You can add new reviews to the googleReviews array
-    console.log('Reviews updated from Google My Business');
-  }
-  
-  // Auto-refresh reviews every 24 hours (optional)
-  setInterval(() => {
-    // This could be connected to a backend service that scrapes Google reviews
-    console.log('Checking for new reviews...');
-  }, 24 * 60 * 60 * 1000);
+    
+    // Auto-refresh reviews every 24 hours (optional)
+    setInterval(() => {
+      // This could be connected to a backend service that scrapes Google reviews
+      console.log('Checking for new reviews...');
+    }, 24 * 60 * 60 * 1000);
+  } catch (err) { console.error('Reviews section error:', err); }
