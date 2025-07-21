@@ -232,7 +232,7 @@ function switchLanguage() {
   });
   
   // Update language button text
-  document.getElementById('languageText').textContent = translations[currentLanguage].hindi;
+  document.getElementById('languageText').textContent = currentLanguage === 'en' ? translations['en'].hindi : translations['hi'].hindi;
   
   // Update hero section
   const heroTitle = document.querySelector('.hero-text h1');
@@ -478,6 +478,31 @@ document.getElementById('contactForm').addEventListener('submit', function(e) {
   alert('Thank you for your message! We will get back to you soon.');
   this.reset();
 });
+
+// Contact form AJAX submission for Formspree
+const contactForm = document.querySelector('.contact-form');
+if (contactForm) {
+  contactForm.addEventListener('submit', async function(e) {
+    e.preventDefault();
+    const formData = new FormData(contactForm);
+    const formSuccess = document.getElementById('formSuccessMessage');
+    try {
+      const response = await fetch(contactForm.action, {
+        method: 'POST',
+        body: formData,
+        headers: { 'Accept': 'application/json' }
+      });
+      if (response.ok) {
+        contactForm.style.display = 'none';
+        if (formSuccess) formSuccess.style.display = 'block';
+      } else {
+        alert('There was a problem submitting your form. Please try again.');
+      }
+    } catch (err) {
+      alert('There was a problem submitting your form. Please try again.');
+    }
+  });
+}
 
 // Scroll animations
 const observerOptions = {

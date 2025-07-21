@@ -5,7 +5,7 @@ Disallow: /private/
 Disallow: /temp/
 
 # Sitemap
-Sitemap: https://astrologyforall.com/sitemap.xml
+Sitemap: https://astrologyforall.github.io/sitemap.xml
 
 # Crawl-delay for respectful crawling
 Crawl-delay: 1
